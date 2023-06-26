@@ -9,7 +9,7 @@ class CardFormScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pay with a credit card'),
+        title: const Text('Card payment'),
         centerTitle: true,
       ),
       body: Padding(
@@ -19,14 +19,17 @@ class CardFormScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Card Form',
+              'Card information',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(
               height: 20,
             ),
-            CardFormField(
-              controller: CardFormEditController(),
+            Container(
+              color: Colors.black,
+              child: CardFormField(
+                controller: CardFormEditController(),
+              ),
             ),
             const SizedBox(
               height: 10,
