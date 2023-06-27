@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:donations/forms/text_form_fields.dart';
+//import 'package:donations/forms/text_form_fields.dart';
 
 class CardFormScreen extends StatelessWidget {
   //const CardFormScreen({super.key});   1st
@@ -10,9 +10,9 @@ class CardFormScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Card payment'),
+        //title: const Text('Card payment'),
         centerTitle: true,
       ),
       body: Padding(
@@ -21,13 +21,13 @@ class CardFormScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const TextForms(),
+              //const TextForms(),
               const Text(
                 'Card Information',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Arial',
-                  // fontSize: 16,
+                  fontSize: 22,
                 ),
               ),
               const SizedBox(
@@ -46,7 +46,12 @@ class CardFormScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {},
-                child: const Text('pay'),
+                child: const Text(
+                  'Donate',
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
               )
             ]),
       ),

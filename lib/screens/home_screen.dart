@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../forms/text_form_fields.dart';
 //import '../forms/text_form_fields.dart';
-import './card_form_screen.dart';
+//import './card_form_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Donate'),
+        //title: const Text('Donate'),
         centerTitle: true,
       ),
       body: ListTile(
@@ -18,10 +19,15 @@ class HomeScreen extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const CardFormScreen(),
+                builder: (context) => const TextForms(),
               ));
         },
-        title: const Text('Donate Now...'),
+        title: const Text(
+          'Donate Now...',
+          style: TextStyle(
+            fontSize: 24,
+          ),
+        ),
         trailing: const Icon(Icons.chevron_right_rounded),
       ),
     );
