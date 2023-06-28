@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import '../screens/card_form_screen.dart';
 
 //import 'amount.dart';
 
-class TextForms extends StatelessWidget {
+class TextForms extends StatefulWidget {
   const TextForms({super.key});
+
+  @override
+  State<TextForms> createState() => _TextFormsState();
+}
+
+class _TextFormsState extends State<TextForms> {
+  final formkey = GlobalKey<FormState>();
+  String name = '';
 
   // This widget is the root of your application.
   @override
@@ -24,6 +33,7 @@ class TextForms extends StatelessWidget {
             children: [
               SingleChildScrollView(
                 child: Form(
+                  key: formkey,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
@@ -46,7 +56,7 @@ class TextForms extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        TextField(
+                        TextFormField(
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                               icon: const Icon(Icons.attach_money),
@@ -54,6 +64,16 @@ class TextForms extends StatelessWidget {
                               hintText: 'eg. 2345',
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10))),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Amount cannot be empty';
+                            }
+                            if (!RegExp(r'^[1-9]+$').hasMatch(value)) {
+                              return 'Enter correct amount';
+                            } else {
+                              return null;
+                            }
+                          },
                         ),
                         const SizedBox(
                           height: 50,
@@ -77,13 +97,28 @@ class TextForms extends StatelessWidget {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               )),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Email cannot be empty';
+                            }
+                            if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}')
+                                .hasMatch(value)) {
+                              return 'Enter correct email address';
+                            } else {
+                              return null;
+                            }
+                          },
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         IntlPhoneField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
                           decoration: InputDecoration(
-                              labelText: 'Phone Number',
+                              labelText: 'Optional: Phone Number',
+                              hintText: 'Phone Number',
                               filled: true,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -94,11 +129,14 @@ class TextForms extends StatelessWidget {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const CardFormScreen(),
-                                ));
+                            if (formkey.currentState!.validate()) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const CardFormScreen(),
+                                  ));
+                            }
                           },
                           child: const Text(
                             'Pay With Card',
